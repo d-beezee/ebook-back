@@ -1,9 +1,9 @@
 import { Sequelize } from "sequelize";
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./database.sqlite",
-});
+const env = process.env.NODE_ENV || 'development';
+const config = require(__dirname + '/../../config.json')[env];
+
+const sequelize = new Sequelize(config);
 const db = async () => {
   await sequelize
     .authenticate()
