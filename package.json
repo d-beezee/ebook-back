@@ -12,8 +12,10 @@
     "pdf-to-base64": "^1.0.3",
     "pdfjs": "^2.4.7",
     "pdfjs-dist": "^2.13.216",
+    "rimraf": "^3.0.2",
     "sequelize": "^6.17.0",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.0.2",
+    "tscpaths": "^0.0.9"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -24,7 +26,7 @@
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1",
     "ts-node": "^10.6.0",
-    "tsconfig-paths": "^3.13.0",
+    "tsconfig-paths": "^3.14.0",
     "typescript": "^4.6.2"
   },
   "nodemonConfig": {
@@ -41,13 +43,16 @@
     "ext": "ts, js"
   },
   "scripts": {
-    "build": "tsc --noEmit false --outDir dist",
+    "build": "npm run clean && npm run compile && npm run copy",
+    "compile": " tsc --project tsconfig.json --noEmit false --outDir dist && tscpaths -p tsconfig.json -s ./ -o ./dist",
+    "copy": "cp config.json dist/config.json",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ",
     "migrate": "sequelize-cli db:migrate",
     "migrate:undo": "sequelize-cli db:migrate:undo",
     "migrate:new": "sequelize-cli migration:create --name ",
-    "model:new": "sequelize-cli model:generate --name"
+    "model:new": "sequelize-cli model:generate --name",
+    "clean": "rimraf dist"
   },
   "repository": {
     "type": "git",
