@@ -41,6 +41,7 @@
     "ext": "ts, js"
   },
   "scripts": {
+    "build": "tsc --noEmit false --outDir dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon ",
     "migrate": "sequelize-cli db:migrate",
